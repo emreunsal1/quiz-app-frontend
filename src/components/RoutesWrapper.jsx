@@ -5,6 +5,7 @@ import Register from "../pages/Auth/Register";
 import React, { useEffect } from "react";
 import { useAdminController, useAuth } from "../hooks/auth";
 import GameLogin from "../pages/Auth/GameLogin";
+import QuestionWrapper from "./QuestionWrapper";
 
 export default function RoutesWrapper() {
   useAuth();
@@ -13,6 +14,9 @@ export default function RoutesWrapper() {
     <Switch>
       <Route path={"/register"}>
         <Register />
+      </Route>
+      <Route path={"/admin/questions/:listid"}>
+        <QuestionWrapper />
       </Route>
       <Route path={"/admin"}>
         <MainPage />
