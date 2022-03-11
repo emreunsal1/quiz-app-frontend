@@ -58,6 +58,12 @@ export const createList = async (listName) => {
   return response.data;
 };
 
+export const deleteListToDatabase = async (listId) => {
+  console.log(listId);
+  const response = await instance.delete(`/list/delete/${listId}`);
+  console.log(response);
+};
+
 export const getQuestionToDatabase = async (listId) => {
   const response = await instance.get(`/question/${listId}`);
   return response.data;
