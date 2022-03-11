@@ -11,9 +11,6 @@ export default function QuestionList() {
   useEffect(() => {
     listResponse();
   }, []);
-  useEffect(() => {
-    console.log(deleteList);
-  }, [deleteList]);
 
   const listResponse = async () => {
     const response = await getList();
@@ -21,8 +18,8 @@ export default function QuestionList() {
   };
 
   const deleteSelected = async () => {
-    console.log(deleteList);
-    const respnose = await deleteListToDatabase(deleteList);
+    await deleteListToDatabase(deleteList);
+    listResponse();
   };
 
   return (
