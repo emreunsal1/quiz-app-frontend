@@ -47,5 +47,18 @@ export const createNewUser = async (username, password) => {
 
 export const getList = async () => {
   const response = await instance.get("/list");
+  console.log(response.data);
+  return response.data;
+};
+
+export const createList = async (listName) => {
+  const response = await instance.post("/list/new", {
+    name: listName,
+  });
+  return response.data;
+};
+
+export const getQuestionToDatabase = async (listId) => {
+  const response = await instance.get(`/question/${listId}`);
   return response.data;
 };
