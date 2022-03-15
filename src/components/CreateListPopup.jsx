@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import {} from "react/cjs/react.production.min";
 import { createList } from "../functions/axiosFunctions";
 
-export default function CreateListPopup({ renderList }) {
+export default function CreateListPopup({ onCreate }) {
   const [listName, setlistName] = useState("");
   const addCreateList = async () => {
     const response = await createList(listName);
     console.log(response);
-    renderList();
+    onCreate();
   };
   return (
     <div>

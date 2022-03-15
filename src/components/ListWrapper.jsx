@@ -31,7 +31,7 @@ export default function QuestionList() {
         ))}
         <li onClick={() => setIsPopup(true)}>Add Create List</li>
       </ul>
-      <div className="createPopup">{isPopup && <CreateListPopup renderList={listResponse} />}</div>
+      <div className="createPopup">{isPopup && <CreateListPopup onCreate={listResponse} />}</div>
     </div>
   );
 }

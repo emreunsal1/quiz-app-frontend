@@ -64,6 +64,13 @@ export const deleteListToDatabase = async (listId) => {
   console.log(response);
 };
 
+export const createQestionToDatabase = async (question) => {
+  const response = await instance.post("/question/add", {
+    question: question,
+  });
+  return response.data;
+};
+
 export const getQuestionToDatabase = async (listId) => {
   const response = await instance.get(`/question/${listId}`);
   return response.data;
