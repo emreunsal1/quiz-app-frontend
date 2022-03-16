@@ -59,9 +59,8 @@ export const createList = async (listName) => {
 };
 
 export const deleteListToDatabase = async (listId) => {
-  console.log(listId);
   const response = await instance.delete(`/list/delete/${listId}`);
-  console.log(response);
+  return true;
 };
 
 export const createQestionToDatabase = async (question) => {
@@ -69,6 +68,12 @@ export const createQestionToDatabase = async (question) => {
     question: question,
   });
   return response.data;
+};
+
+export const deleteQuestionsToDatabase = async (questionsId) => {
+  console.log(questionsId);
+  const response = await instance.delete(`/question/delete/${questionsId}`);
+  console.log(response);
 };
 
 export const getQuestionToDatabase = async (listId) => {

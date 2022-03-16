@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getQuestionToDatabase } from "../functions/axiosFunctions";
 import CreateQestion from "./CreateQestion";
 import QuestionsCard from "./QuestionsCard";
+import { getQuestionToDatabase, deleteQuestionsToDatabase } from "./../functions/axiosFunctions";
 
 export default function QuestionWrapper({}) {
   const [questions, setQuestions] = useState([]);
+  const [deleteQuestion, setDeleteQuestion] = useState([]);
   const [isAddQuestions, setIsAddQuestions] = useState(false);
   const { listid } = useParams();
+  useEffect(() => {
+    console.log(deleteQuestion);
+  }, [deleteQuestion]);
 
   const getQuestions = async () => {
     const response = await getQuestionToDatabase(listid);
     setQuestions(response);
+  };
+
+  const deleteButtonOnclick = async () => {
+    const response = await deleteQuestionsToDatabase(deleteQuestion);
   };
 
   useEffect(() => {
@@ -19,9 +27,10 @@ export default function QuestionWrapper({}) {
   }, []);
   return (
     <div>
+      <button onClick={deleteButtonOnclick}>delete</button>
       <ul>
         {questions.map((question) => (
-          <QuestionsCard question={question} />
+          <QuestionsCard key={question._id} question={question} deleteQuestion={deleteQuestion} setDeleteQuestion={setDeleteQuestion} />
         ))}
       </ul>
       <div onClick={() => setIsAddQuestions(true)}>Add Question</div>

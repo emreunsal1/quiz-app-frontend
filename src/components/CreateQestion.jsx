@@ -28,6 +28,7 @@ export default function CreateQestion({ listid }) {
           correct: form.option4Check.checked,
         },
       ],
+      time: form.questionTime.value,
     };
     const response = await createQestionToDatabase(newQuestion);
     console.log(response);
@@ -54,7 +55,7 @@ export default function CreateQestion({ listid }) {
             <input name="option4Check" type={"checkbox"} />
           </li>
         </ul>
-        <select>
+        <select name="questionTime">
           <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={30}>30</option>
