@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import CreateQestion from "./CreateQestion";
 import QuestionsCard from "./QuestionsCard";
 import { getQuestionToDatabase, deleteQuestionsToDatabase } from "./../functions/axiosFunctions";
+import { loginSocket } from "./../functions/socketFunctions";
 
 export default function QuestionWrapper({}) {
   const [questions, setQuestions] = useState([]);
@@ -22,12 +23,17 @@ export default function QuestionWrapper({}) {
     const response = await deleteQuestionsToDatabase(deleteQuestion);
   };
 
+  const startButtonOnClick = async () => {
+    loginSocket(listid);
+  };
+
   useEffect(() => {
     getQuestions();
   }, []);
   return (
     <div>
       <button onClick={deleteButtonOnclick}>delete</button>
+      <button onClick={startButtonOnClick}>Start Quiz</button>
       <ul>
         {questions.map((question) => (
           <QuestionsCard key={question._id} question={question} deleteQuestion={deleteQuestion} setDeleteQuestion={setDeleteQuestion} />

@@ -15,8 +15,8 @@ export const useAdminController = () => {
   const location = useLocation();
   if (!location.pathname.includes("admin")) {
     const local = localStorage.getItem("token");
-    if (local) {
-      history.push("/admin");
-    }
+    // if (local) {
+    //   history.push("/admin");
+    // }
   }
 };

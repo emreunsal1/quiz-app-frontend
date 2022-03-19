@@ -1,4 +1,5 @@
 import axios from "axios";
+import { io } from "socket.io-client";
 import { getToken, removeToken } from "./storage";
 
 const instance = axios.create({

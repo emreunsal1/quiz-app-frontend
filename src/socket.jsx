@@ -7,6 +7,7 @@ function Socket() {
   const [teachPassword, setTeachPassword] = useState("");
   const [name, setName] = useState("");
   const [roomId, setRoomId] = useState("");
+
   const socket = useRef();
   useEffect(() => {
     socket.current = io("ws://localhost:3001/");
@@ -21,10 +22,7 @@ function Socket() {
       name: name,
       roomKey: roomId,
     });
-    socket.current.emit(
-      roomId,
-      io.to(data.roomKey).emit("detail", await fetcDetails())
-    );
+    socket.current.emit(roomId, io.to(data.roomKey).emit("detail", await fetcDetails()));
   };
 
   const requestAxios = () => {
@@ -37,32 +35,16 @@ function Socket() {
     <div className="App">
       <div className="teach-login">
         <h2>Öğretmen girişi </h2>
-        <input
-          id="teach-name"
-          placeholder="nmae"
-          onChange={(e) => setTeacName(e.target.value)}
-        />
-        <input
-          id="password"
-          placeholder="password"
-          onChange={(e) => setTeachPassword(e.target.value)}
-        />
+        <input id="teach-name" placeholder="nmae" onChange={(e) => setTeacName(e.target.value)} />
+        <input id="password" placeholder="password" onChange={(e) => setTeachPassword(e.target.value)} />
         <button id="SLogin-button" onClick={requestAxios}>
           Login
         </button>
       </div>
       <div className="student">
         <h2>öğrenci girişi </h2>
-        <input
-          id="student-name"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          id="room-id"
-          placeholder="room id"
-          onChange={(e) => setRoomId(e.target.value)}
-        />
+        <input id="student-name" placeholder="Name" onChange={(e) => setName(e.target.value)} />
+        <input id="room-id" placeholder="room id" onChange={(e) => setRoomId(e.target.value)} />
         <button id="SLogin-button" onClick={buttonOnClick}>
           Login
         </button>
