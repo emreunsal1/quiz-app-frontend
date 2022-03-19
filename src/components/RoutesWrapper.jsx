@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useAdminController, useAuth } from "../hooks/auth";
 import GameLogin from "../pages/Auth/GameLogin";
 import QuestionWrapper from "./QuestionWrapper";
+import KeyLogin from "../pages/Student/KeyLogin";
 
 export default function RoutesWrapper() {
   useAuth();
@@ -23,6 +24,9 @@ export default function RoutesWrapper() {
       </Route>
       <Route path={"/login"}>
         <Login />
+      </Route>
+      <Route path={"/keylogin"}>
+        <KeyLogin />
       </Route>
       <Route path={"/"}>
         <GameLogin />

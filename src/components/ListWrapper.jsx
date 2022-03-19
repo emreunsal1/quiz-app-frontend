@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { io } from "socket.io-client";
 import { getList } from "../functions/axiosFunctions";
 import CreateListPopup from "./CreateListPopup";
 import ListCard from "./ListCard";
 import { deleteListToDatabase } from "./../functions/axiosFunctions";
+import { loginSocket } from "./../functions/socketFunctions";
 
 export default function QuestionList() {
   const [listInfo, setListInfo] = useState([]);
@@ -10,6 +12,8 @@ export default function QuestionList() {
   const [deleteList, setDeleteList] = useState([]);
   useEffect(() => {
     listResponse();
+    const socket = io("ws://localhost:3001");
+    socket.on("ahmet", (data) => console.log(data));
   }, []);
 
   const listResponse = async () => {
