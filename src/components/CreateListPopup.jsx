@@ -6,7 +6,6 @@ export default function CreateListPopup({ onCreate }) {
   const [listName, setlistName] = useState("");
   const addCreateList = async () => {
     const response = await createList(listName);
-    console.log(response);
     onCreate();
   };
   return (

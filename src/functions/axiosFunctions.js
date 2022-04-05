@@ -48,7 +48,6 @@ export const createNewUser = async (username, password) => {
 
 export const getList = async () => {
   const response = await instance.get("/list");
-  console.log(response.data);
   return response.data;
 };
 
@@ -72,9 +71,7 @@ export const createQestionToDatabase = async (question) => {
 };
 
 export const deleteQuestionsToDatabase = async (questionsId) => {
-  console.log(questionsId);
   const response = await instance.delete(`/question/delete/${questionsId}`);
-  console.log(response);
 };
 
 export const getQuestionToDatabase = async (listId) => {

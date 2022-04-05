@@ -7,6 +7,8 @@ import { useAdminController, useAuth } from "../hooks/auth";
 import GameLogin from "../pages/Auth/GameLogin";
 import QuestionWrapper from "./QuestionWrapper";
 import KeyLogin from "../pages/Student/KeyLogin";
+import QuizMain from "../pages/Admin/QuizMain";
+import WaitingRoom from "./../pages/Student/WaitingRoom";
 
 export default function RoutesWrapper() {
   useAuth();
@@ -27,6 +29,12 @@ export default function RoutesWrapper() {
       </Route>
       <Route path={"/keylogin"}>
         <KeyLogin />
+      </Route>
+      <Route path={"/quiz/:listid"}>
+        <QuizMain />
+      </Route>
+      <Route path={"/waitingRoom/:username"}>
+        <WaitingRoom />
       </Route>
       <Route path={"/"}>
         <GameLogin />

@@ -31,7 +31,6 @@ export default function CreateQestion({ listid }) {
       time: form.questionTime.value,
     };
     const response = await createQestionToDatabase(newQuestion);
-    console.log(response);
   };
   return (
     <div>
