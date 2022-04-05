@@ -3,16 +3,15 @@ import { useParams } from "react-router-dom";
 import CreateQestion from "./CreateQestion";
 import QuestionsCard from "./QuestionsCard";
 import { getQuestionToDatabase, deleteQuestionsToDatabase } from "./../functions/axiosFunctions";
-import { loginSocket } from "./../functions/socketFunctions";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function QuestionWrapper({}) {
   const [questions, setQuestions] = useState([]);
   const [deleteQuestion, setDeleteQuestion] = useState([]);
   const [isAddQuestions, setIsAddQuestions] = useState(false);
   const { listid } = useParams();
-  useEffect(() => {
-    console.log(deleteQuestion);
-  }, [deleteQuestion]);
+  const history = useHistory();
+  useEffect(() => {}, [deleteQuestion]);
 
   const getQuestions = async () => {
     const response = await getQuestionToDatabase(listid);
@@ -23,17 +22,13 @@ export default function QuestionWrapper({}) {
     const response = await deleteQuestionsToDatabase(deleteQuestion);
   };
 
-  const startButtonOnClick = async () => {
-    loginSocket(listid);
-  };
-
   useEffect(() => {
     getQuestions();
   }, []);
   return (
     <div>
       <button onClick={deleteButtonOnclick}>delete</button>
-      <button onClick={startButtonOnClick}>Start Quiz</button>
+      <button onClick={() => history.push(`/quiz/${listid}`)}>Start Quiz</button>
       <ul>
         {questions.map((question) => (
           <QuestionsCard key={question._id} question={question} deleteQuestion={deleteQuestion} setDeleteQuestion={setDeleteQuestion} />
