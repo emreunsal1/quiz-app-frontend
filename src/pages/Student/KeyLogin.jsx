@@ -1,30 +1,30 @@
 import React, { useEffect, useState, useRef } from "react";
-import { io } from "socket.io-client";
+import { useSocket } from "../../context";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function KeyLogin() {
-  const [loginKey, setLoginKey] = useState("");
-  const socket = useRef();
-  useEffect(() => {
-    socket.current = io("ws://localhost:3001");
-    socket.current.on("connection", (data) => {});
-  }, []);
+  const [loginKey, setLoginKey] = useState("6220baf5a9cc131e400ee20a");
+  const [userName, setUserName] = useState("");
+  const socket = useSocket();
+  const history = useHistory();
 
   const buttonOnclick = () => {
-    socket.current.emit("joinRoom", loginKey);
-    socket.current.on("cevap", (data) => console.log(data));
-    socket.current.on("cevap1", (data) => console.log("cevap1 :" + data));
+    socket.emit("joinRoom", { name: userName, roomKey: loginKey });
+    socket.on("errorMessage", (message) => {
+      console.log(message);
+    });
+    socket.on("isLogin", (data) => {
+      if (data) {
+        history.push(`/waitingRoom/${userName}`);
+      }
+    });
   };
+
   return (
     <div>
-      <input placeholder="key login" onChange={(e) => setLoginKey(e.target.value)}></input>
+      <input placeholder="key login" value={loginKey} onChange={(e) => setLoginKey(e.target.value)}></input>
+      <input placeholder="User Name" onChange={(e) => setUserName(e.target.value)}></input>
       <button onClick={buttonOnclick}>Login</button>
-      <button
-        onClick={() => {
-          socket.current.emit("cevap1", "cevap");
-        }}
-      >
-        refresh
-      </button>
     </div>
   );
 }
