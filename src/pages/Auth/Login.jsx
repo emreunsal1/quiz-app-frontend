@@ -19,12 +19,14 @@ export default function Login() {
     history.push("/admin");
   };
   return (
-    <div>
+    <div className="t-login">
       <div className="login-container">
-        <input placeholder="User Name" onChange={(e) => setUserName(e.target.value)}></input>
-        <input placeholder="Password" onChange={(e) => setPassword(e.target.value)}></input>
-        <button onClick={userLogin}>Login</button>
-        <Link to={"/register"}>register </Link>
+        <div className="form-container">
+          <input placeholder="User Name" onChange={(e) => setUserName(e.target.value)}></input>
+          <input placeholder="Password" onChange={(e) => setPassword(e.target.value)}></input>
+          <button onClick={userLogin}>Login</button>
+          <Link to={"/register"}>register </Link>
+        </div>
       </div>
     </div>
   );
