@@ -4,6 +4,9 @@ import { useSocket } from "../../context";
 import { getQuestionToDatabase } from "../../functions/axiosFunctions";
 import { SocketContext } from "./../../context";
 import { useInterval } from "./../../hooks/timer";
+import Timer from "../../components/Timer";
+import { Button, Typography } from "antd";
+import UserList from "./../../components/UserList";
 
 export default function QuizMain() {
   const [users, setUsers] = useState([]);
@@ -12,6 +15,7 @@ export default function QuizMain() {
   const socket = useSocket();
   const [questionCount, setQuestionCount] = useState(null);
   const [endQuestion, setEndQuestion] = useState(false);
+  const isQuizFinished = questions.length - 1 == questionCount;
 
   const listener = function (data) {
     console.log(data);
@@ -32,6 +36,7 @@ export default function QuizMain() {
     socket.on("scoreTable", (data) => {
       setUsers(data.sort((a, b) => b.score - a.score));
     });
+    return () => socket.removeAllListeners();
   }, []);
 
   useEffect(() => {
@@ -46,15 +51,12 @@ export default function QuizMain() {
     const questionsResponse = await getQuestionToDatabase(listid);
     setQuestions(questionsResponse);
   };
-
+  0;
   const startQuizButton = async () => {
     setQuestionCount(0);
   };
 
   const nextQuestionButton = () => {
-    if (questions.length - 1 < questionCount) {
-      return setEndQuestion(true);
-    }
     setQuestionCount(questionCount + 1);
   };
 
@@ -68,32 +70,18 @@ export default function QuizMain() {
 
   return (
     <div>
-      {timer}
-      <button onClick={endQuiz}>Sınavı bitir</button>
-      burasi öğretmen socket açtı
-      <ul>
-        {users.map((user, index) => (
-          <li key={index}>{user.name}</li>
-        ))}
-      </ul>
-      <button disabled={!questions.length} onClick={startQuizButton}>
-        sınavı başlat
-      </button>
-      <button onClick={nextQuestionButton}>Sonraki soru</button>
-      <div style={{ display: endQuestion ? "block" : "none" }}>
-        <ul>
-          {endQuestion &&
-            users.map((user) => {
-              return (
-                <li>
-                  {user.name}
-                  <br />
-                  {user.score}
-                </li>
-              );
-            })}
-        </ul>
-      </div>
+      <Timer time={timer} />
+      <Typography>Kullanıcılar Bekleniyor</Typography>
+      {questionCount === null && <UserList userList={users} isScore={false} />}
+      <Button onClick={startQuizButton} disabled={!questions.length || !users.length}>
+        Sınavı Başlat
+      </Button>
+      {endQuestion && (
+        <div>
+          <Button onClick={isQuizFinished ? endQuiz : nextQuestionButton}> {isQuizFinished ? "Sınavı Birit" : "Next Question"}</Button>
+          <UserList userList={users} isScore={true} />
+        </div>
+      )}
     </div>
   );
 }

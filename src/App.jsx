@@ -1,6 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import RoutesWrapper from "./components/RoutesWrapper";
 import { SocketContext, socket } from "./context";
+import "./style/app.scss";
 
 function App() {
   return (

@@ -9,6 +9,7 @@ export default function KeyLogin() {
   const history = useHistory();
 
   const buttonOnclick = () => {
+    sessionStorage.removeItem("isLoggedIn");
     socket.emit("joinRoom", { name: userName, roomKey: loginKey });
     socket.on("errorMessage", (message) => {
       console.log(message);

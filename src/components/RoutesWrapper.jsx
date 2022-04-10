@@ -27,7 +27,7 @@ export default function RoutesWrapper() {
       <Route path={"/login"}>
         <Login />
       </Route>
-      <Route path={"/keylogin"}>
+      <Route path={"/keylogin/"}>
         <KeyLogin />
       </Route>
       <Route path={"/quiz/:listid"}>
