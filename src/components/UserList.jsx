@@ -3,9 +3,9 @@ import React from "react";
 export default function UserList({ userList, isScore }) {
   return (
     <div>
-      {userList.map((user) => {
+      {userList.map((user, index) => {
         return (
-          <div>
+          <div key={index}>
             {user.name}: {isScore && user.score}
           </div>
         );

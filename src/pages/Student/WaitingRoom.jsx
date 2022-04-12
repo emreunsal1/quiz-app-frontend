@@ -27,7 +27,7 @@ export default function WaitingRoom() {
     }
     sessionStorage.setItem("isLoggedIn", true);
     socket.on("question", (data) => {
-      console.log(data);
+      setResult(null);
       setQuestion(data);
       setTimer(data.time);
       if (data) {
@@ -69,11 +69,11 @@ export default function WaitingRoom() {
                   ))}
                 </ul>
               )}
-              {result !== null && <div>{result ? "cevabınız doğru efenim" : "cevabınız yanlış efenim"}</div>}
             </div>
           )}
         </>
       )}
+      {result !== null && <div>{result ? "cevabınız doğru efenim" : "cevabınız yanlış efenim"}</div>}
       {scoreList && <UserList userList={scoreList} isScore />}
     </div>
   );
