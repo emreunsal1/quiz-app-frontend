@@ -72,16 +72,16 @@ export default function QuizMain() {
   return (
     <div>
       <Timer time={timer} />
-      <Typography>Kullanıcılar Bekleniyor</Typography>
+
       {questionCount === null && (
         <>
+          <Typography>Kullanıcılar Bekleniyor</Typography>
           <UserList userList={users} isScore={false} />
           <Button onClick={startQuizButton} disabled={!questions.length || !users.length}>
             Sınavı Başlat
           </Button>
         </>
       )}
-
       {endQuestion && (
         <div>
           <Button onClick={isQuizFinished ? endQuiz : nextQuestionButton}> {isQuizFinished ? "Sınavı Birit" : "Next Question"}</Button>

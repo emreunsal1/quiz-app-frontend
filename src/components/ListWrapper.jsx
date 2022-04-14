@@ -10,30 +10,34 @@ export default function QuestionList() {
   const [isPopup, setIsPopup] = useState(false);
   const [deleteList, setDeleteList] = useState([]);
   useEffect(() => {
-    listResponse();
+    refreshList();
     const socket = io("ws://localhost:3001");
   }, []);
 
-  const listResponse = async () => {
+  const refreshList = async () => {
+    console.log("çalıştı ");
     const response = await getList();
     setListInfo(response);
   };
 
   const deleteSelected = async () => {
-    await deleteListToDatabase(deleteList);
-    listResponse();
+    if (deleteList.length > 0) {
+      await deleteListToDatabase(deleteList);
+    }
+    refreshList();
+    setDeleteList([]);
   };
 
   return (
     <div>
-      <button onClick={() => deleteSelected()}>Sil</button>
+      <div onClick={() => setIsPopup(true)}>Add Create List</div>
+      {deleteList.length > 0 && <button onClick={() => deleteSelected()}>Sil</button>}
       <ul id="ul">
         {listInfo.map((list, index) => (
-          <ListCard key={index} list={list} setDeleteList={setDeleteList} deleteList={deleteList} />
+          <ListCard key={index} list={list} setDeleteList={setDeleteList} refreshList={refreshList} deleteList={deleteList} />
         ))}
-        <li onClick={() => setIsPopup(true)}>Add Create List</li>
       </ul>
-      <div className="createPopup">{isPopup && <CreateListPopup onCreate={listResponse} />}</div>
+      <div className="createPopup">{isPopup && <CreateListPopup onCreate={refreshList} popup={setIsPopup} />}</div>
     </div>
   );
 }

@@ -51,9 +51,10 @@ export const getList = async () => {
   return response.data;
 };
 
-export const createList = async (listName) => {
+export const createList = async (listName, description) => {
   const response = await instance.post("/list/new", {
     name: listName,
+    description: description,
   });
   return response.data;
 };
@@ -76,5 +77,14 @@ export const deleteQuestionsToDatabase = async (questionsId) => {
 
 export const getQuestionToDatabase = async (listId) => {
   const response = await instance.get(`/question/${listId}`);
+  return response.data;
+};
+
+export const editListInfo = async (listId, title, description) => {
+  const response = await instance.post("/list/edit", {
+    listId: listId,
+    title: title,
+    description: description,
+  });
   return response.data;
 };

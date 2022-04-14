@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CreateQestion from "./CreateQestion";
-import QuestionsCard from "./QuestionsCard";
+import QuestionsCard from "./EditQuestionsCard";
 import { getQuestionToDatabase, deleteQuestionsToDatabase } from "./../functions/axiosFunctions";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
