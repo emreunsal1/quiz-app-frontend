@@ -48,19 +48,19 @@ export const createNewUser = async (username, password) => {
 
 export const getList = async () => {
   const response = await instance.get("/list");
-  return response.data;
+  return response.data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 };
 
 export const createList = async (listName, description) => {
-  const response = await instance.post("/list/new", {
+  const response = await instance.post("/list/", {
     name: listName,
     description: description,
   });
-  return response.data;
+  return response;
 };
 
 export const deleteListToDatabase = async (listId) => {
-  const response = await instance.delete(`/list/delete/${listId}`);
+  await instance.delete(`/list/${listId}`);
   return true;
 };
 
@@ -81,8 +81,7 @@ export const getQuestionToDatabase = async (listId) => {
 };
 
 export const editListInfo = async (listId, title, description) => {
-  const response = await instance.post("/list/edit", {
-    listId: listId,
+  const response = await instance.put(`/list/${listId}`, {
     title: title,
     description: description,
   });

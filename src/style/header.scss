@@ -1,4 +1,9 @@
 .h-container {
   width: 100%;
-  background-color: aqua;
+  display: flex;
+  margin: 30px 0px;
+  justify-content: center;
+  img {
+    width: 60px;
+  }
 }
